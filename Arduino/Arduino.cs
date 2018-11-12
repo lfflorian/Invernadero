@@ -10,9 +10,9 @@ namespace Arduino
     public class Arduino
     {
         SerialPort PuertoArduino;
-        string Humedad;
-        string Iluminosidad;
-        string Temperatura;
+        public string Humedad { get; set; }
+        public string Iluminosidad { get; set; }
+        public string Temperatura { get; set; }
 
         public Arduino()
         {
@@ -23,6 +23,24 @@ namespace Arduino
                 BaudRate = 9600,
             };
             PuertoArduino.DataReceived += new SerialDataReceivedEventHandler(Arduino_DataReceived);
+        }
+
+        public Arduino(string Puerto)
+        {
+            PuertoArduino = new SerialPort()
+            {
+                PortName = Puerto,
+                //  Baudio = numero de señales por segundo
+                BaudRate = 9600,
+            };
+            PuertoArduino.DataReceived += new SerialDataReceivedEventHandler(Arduino_DataReceived);
+        }
+
+        public void CambiarPuerto(string Puerto)
+        {
+            PuertoArduino.Close();
+            PuertoArduino.PortName = Puerto;
+            PuertoArduino.Open();
         }
 
         public void EstadoArduino(bool estado)
@@ -60,7 +78,7 @@ namespace Arduino
 
         public string DevuelveDatos()
         {
-            var texto = $"{Temperatura} : { Iluminosidad }";
+            var texto = $"{Temperatura} : { Iluminosidad } : { Humedad }";
             return texto;
         }
     }

@@ -9,6 +9,7 @@ namespace Invernadero_console
 {
     class Program
     {
+        //Programa que solo muestra los datos recividos del arduino
         public static Arduino.Arduino arduino;
 
         static void Main(string[] args)
@@ -20,12 +21,11 @@ namespace Invernadero_console
             Recursivo(escritura);
         }
 
-
+        //Se preciona una tecla diferente de N para mostrar los datos sin cerrar el programa, N cierra el programa
         private static void Recursivo(string escritura)
         {
             if (escritura.ToUpper() != "N")
             {
-                //Console.WriteLine("Datos");
                 Console.WriteLine(arduino.DevuelveDatos());
                 var r = Console.ReadLine();
                 Recursivo(r);
